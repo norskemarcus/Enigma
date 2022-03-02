@@ -9,7 +9,6 @@ public class Main {
     public void printVelkommen(){
         System.out.println("Velkommen til krypterings- og dekrypteringsnøglen.");
         kryptereEllerDekryptere();
-
     }
 
     public String tekstInput(){
@@ -38,7 +37,7 @@ public class Main {
     }
 
     public void kryptereTekst(){
-        System.out.println("Indtast tekst du vil kryptere: ");
+        System.out.println("Indtast tekst du vil kryptere (blokbogstaver): ");
         String kryptereTekstInput = tekstInput();
 
         System.out.println("For at kryptere din tekst skal du vælge en shift-værdi, som er udgangspunktet " +
@@ -52,11 +51,16 @@ public class Main {
     }
 
     public void dekryptereTekst(){
+        System.out.println("Indtast tekst du vil dekryptere (blokbogstaver):");
+        String deKryptereTekstInput = tekstInput();
+
         System.out.println("For at dekryptere din tekst skal du vælge den shift-værdi, som blev brugt for at for kryptere " +
             "den oprindelige tekst med en Cæsar-cipher-kryptering. Shift-værdien er en forskydning af hver enkelt bogstav" +
             " det givne antal pladser.");
 
         int shift = enterShift();
+        String deKrypteretOrd = deKrypterEtTegnAdGangen(deKryptereTekstInput, shift);
+        System.out.println(deKrypteretOrd);
     }
 
     public int enterShift(){
@@ -81,14 +85,28 @@ public class Main {
        return str.toString();
     }
 
+    public String deKrypterEtTegnAdGangen(String tekstInput, int shiftVærdi) {
+
+        StringBuilder str = new StringBuilder();
+
+        for (int i = 0; i < tekstInput.length(); i++) {
+            char letter = tekstInput.charAt(i);
+            int tal = bogstavTilNummer(letter);
+            int nybogstavværdiDekrypt = trækkeFraShift(tal, shiftVærdi);
+            char bogstav = talTilBogstav(nybogstavværdiDekrypt);
+            str.append(bogstav);
+        }
+        return str.toString();
+    }
+
+
     // modtage en char (bogstav) og returnere en int
     public int bogstavTilNummer(char tekstChar) {
 
-        int intNummer;
-        for (intNummer = 0; intNummer < alfabet.length; intNummer++) {
-
-            if (alfabet[intNummer] == tekstChar){
-                return intNummer;
+        int tal;
+        for (tal = 0; tal < alfabet.length; tal++) {
+            if (alfabet[tal] == tekstChar){
+                return tal;
             }
         }
         return -1;
@@ -96,10 +114,23 @@ public class Main {
 
 
     public int læggeTilShift(int tal, int shiftVærdi){
+      int antalBogstaver = 29;
+       if (tal > antalBogstaver){
+          tal = tal-antalBogstaver;
+       }
+        tal += shiftVærdi;
+        return tal;
+    }
 
-        shiftVærdi += tal;
-        return shiftVærdi;
-
+    public int trækkeFraShift(int tal, int shiftVærdi){
+       int antalBogstaver = 29;
+        if (tal <= 0){
+            tal = tal + antalBogstaver;
+        } else if (tal == 0){
+            tal = antalBogstaver;
+        }
+        tal -= shiftVærdi;
+        return tal;
     }
 
     //modtage en int og returnere en char(bogstav)
@@ -107,21 +138,13 @@ public class Main {
 
        char talværdi = alfabet [talInt];
        return talværdi;
-
     }
-
-
 
 
     public static void main (String[]args){
 
         Main obj = new Main();
-        String testTekst = "AAAABBBB";
-        int testShift = 3;
-
         obj.printVelkommen();
-
-
     }
 }
 
