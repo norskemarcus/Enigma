@@ -134,9 +134,8 @@ public class Main {
 
         if (talInklShift < 0){
             talInklShift = talInklShift + antalBogstaver;
-        } else if (tal == 0){
-            talInklShift = antalBogstaver;
         }
+
 
         return talInklShift;
     }
