@@ -1,4 +1,5 @@
 package com.company;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Main {
@@ -12,10 +13,9 @@ public class Main {
     }
 
     public String tekstInput(){
-
         Scanner input = new Scanner(System.in);
-        String tekst = input.nextLine();
-        return tekst;
+        String tekstInputString = input.nextLine().trim().toUpperCase();
+        return tekstInputString;
         }
 
 
@@ -37,7 +37,7 @@ public class Main {
     }
 
     public void kryptereTekst(){
-        System.out.println("Indtast tekst du vil kryptere (blokbogstaver): ");
+        System.out.println("Indtast tekst du vil kryptere: ");
         String kryptereTekstInput = tekstInput();
 
         System.out.println("For at kryptere din tekst skal du vælge en shift-værdi, som er udgangspunktet " +
@@ -47,11 +47,13 @@ public class Main {
         int shift = enterShift();
         String krypteretOrd = krypterEtTegnAdGangen(kryptereTekstInput, shift);
         System.out.println(krypteretOrd);
+        System.out.println(" ");
+        kryptereEllerDekryptere();
 
     }
 
     public void dekryptereTekst(){
-        System.out.println("Indtast tekst du vil dekryptere (blokbogstaver):");
+        System.out.println("Indtast tekst du vil dekryptere:");
         String deKryptereTekstInput = tekstInput();
 
         System.out.println("For at dekryptere din tekst skal du vælge den shift-værdi, som blev brugt for at for kryptere " +
@@ -59,8 +61,10 @@ public class Main {
             " det givne antal pladser.");
 
         int shift = enterShift();
-        String deKrypteretOrd = deKrypterEtTegnAdGangen(deKryptereTekstInput, shift);
-        System.out.println(deKrypteretOrd);
+        String deKrypteretTekst = deKrypterEtTegnAdGangen(deKryptereTekstInput, shift);
+        System.out.println(deKrypteretTekst);
+        System.out.println(" ");
+        kryptereEllerDekryptere();
     }
 
     public int enterShift(){
@@ -70,33 +74,33 @@ public class Main {
         return shiftVærdi;
     }
 
-
     public String krypterEtTegnAdGangen(String tekstInput, int shiftVærdi){
 
-        StringBuilder str = new StringBuilder();
+        StringBuilder krypteretTekst = new StringBuilder();
 
         for (int i = 0; i < tekstInput.length(); i++) {
-            char letter = tekstInput.charAt(i);
-            int tal = bogstavTilNummer(letter);
-            int nybogstavværdi = læggeTilShift(tal, shiftVærdi);
-            char bogstav = talTilBogstav(nybogstavværdi);
-            str.append(bogstav);
+            char bogstavChar = tekstInput.charAt(i);
+            int tal = bogstavTilNummer(bogstavChar);
+            int nyBogstavVærdi = læggeTilShift(tal, shiftVærdi);
+            char bogstav = talTilBogstav(nyBogstavVærdi);
+            krypteretTekst.append(bogstav);
         }
-       return str.toString();
+       return krypteretTekst.toString();
+
     }
 
     public String deKrypterEtTegnAdGangen(String tekstInput, int shiftVærdi) {
 
-        StringBuilder str = new StringBuilder();
+        StringBuilder dekrypteretTekst = new StringBuilder();
 
         for (int i = 0; i < tekstInput.length(); i++) {
             char letter = tekstInput.charAt(i);
             int tal = bogstavTilNummer(letter);
-            int nybogstavværdiDekrypt = trækkeFraShift(tal, shiftVærdi);
-            char bogstav = talTilBogstav(nybogstavværdiDekrypt);
-            str.append(bogstav);
+            int nyBogstavVærdiDekrypt = trækkeFraShift(tal, shiftVærdi);
+            char bogstav = talTilBogstav(nyBogstavVærdiDekrypt);
+            dekrypteretTekst.append(bogstav);
         }
-        return str.toString();
+        return dekrypteretTekst.toString();
     }
 
 
@@ -124,7 +128,7 @@ public class Main {
 
     public int trækkeFraShift(int tal, int shiftVærdi){
        int antalBogstaver = 29;
-        if (tal <= 0){
+        if (tal < 0){
             tal = tal + antalBogstaver;
         } else if (tal == 0){
             tal = antalBogstaver;
@@ -135,9 +139,8 @@ public class Main {
 
     //modtage en int og returnere en char(bogstav)
     public char talTilBogstav(int talInt){
-
-       char talværdi = alfabet [talInt];
-       return talværdi;
+       char nyBogstav = alfabet [talInt];
+       return nyBogstav;
     }
 
 
