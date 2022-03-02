@@ -9,13 +9,13 @@ public class Main {
 
     public void printVelkommen(){
         System.out.println("Velkommen til krypterings- og dekrypteringsnøglen.");
+        System.out.println("Indtast tekst du vil kryptere/dekryptere: ");
+        tekstInput();
     }
 
     public String tekstInput(){
 
         Scanner input = new Scanner(System.in);
-
-        System.out.println("Indtast tekst du vil kryptere/dekryptere: ");
         String tekstInput = input.nextLine();
         kryptereEllerDekryptere();
         return tekstInput;
@@ -45,9 +45,8 @@ public class Main {
         System.out.println("Shift-værdien er en forskydning af hver enkelt bogstav det givne antal pladser.");
 
         int shift = enterShift();
-        String tekstInputTekst = tekstInput();
-        krypterTekst(tekstInputTekst, shift);
-
+        String tekst = tekstInput();
+        krypterTekst(tekst, shift);
     }
 
     public void dekryptereTekst(){
@@ -66,19 +65,18 @@ public class Main {
     }
 
 
-    public String krypterTekst(String tekstInput, int shiftVærdi){
+    public StringBuilder krypterTekst(String tekstInput, int shiftVærdi){
+
+        StringBuilder str = new StringBuilder();
 
         for (int i = 0; i < tekstInput.length(); i++) {
             char letter = tekstInput.charAt(i);
             int tal = bogstavTilNummer(letter);
             int nybogstavværdi = læggeTilShift(tal, shiftVærdi);
             char bogstav = talTilBogstav(nybogstavværdi);
-            System.out.println(bogstav);
-
-            // String builder, husk at ændre void til StringBuilder
+            str.append(bogstav);
         }
-
-       return null;
+       return str;
     }
 
     // modtage en char (bogstav) og returnere en int
@@ -96,7 +94,8 @@ public class Main {
 
 
     public int læggeTilShift(int tal, int shiftVærdi){
-        shiftVærdi = enterShift();
+
+        shiftVærdi += tal;
         return shiftVærdi;
 
     }
@@ -115,19 +114,12 @@ public class Main {
     public static void main (String[]args){
 
         Main obj = new Main();
-        String testTekst = "Dette er en test";
+        String testTekst = "AAAABBBB";
         int testShift = 3;
 
-        obj.tekstInput();
-
+       // obj.printVelkommen();
         obj.krypterTekst(testTekst, testShift);
-       /* int nummer = obj.bogstavTilNummer('H');
-        System.out.println(nummer);
 
-        char bogstav = obj.talTilBogstav(2);
-        System.out.println(bogstav);
-
-        */
     }
 }
 
