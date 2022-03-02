@@ -36,6 +36,26 @@ public class Main {
         }
     }
 
+    public void nytProgram(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Vil du kryptere eller dekryptere igen eller afslutte?");
+        System.out.println("1. Kryptere");
+        System.out.println("2. Dekryptere");
+        System.out.println("3. Afslutte");
+        int valg = sc.nextInt();
+
+        switch (valg) {
+            case 1 -> kryptereTekst();
+            case 2 -> dekryptereTekst();
+            case 3 -> System.out.println("Velkommen tilbage en anden gang");
+            default -> {
+                System.out.println("Tast ind 1 for at kryptere, 2 for at dekryptere eller 3 for at afslutte program");
+                nytProgram();
+            }
+        }
+    }
+
+
     public void kryptereTekst(){
         System.out.println("Indtast tekst du vil kryptere: ");
         String kryptereTekstInput = tekstInput();
@@ -48,7 +68,7 @@ public class Main {
         String krypteretOrd = krypterEtTegnAdGangen(kryptereTekstInput, shift);
         System.out.println(krypteretOrd);
         System.out.println(" ");
-        kryptereEllerDekryptere();
+        nytProgram();
 
     }
 
@@ -64,7 +84,7 @@ public class Main {
         String deKrypteretTekst = deKrypterEtTegnAdGangen(deKryptereTekstInput, shift);
         System.out.println(deKrypteretTekst);
         System.out.println(" ");
-        kryptereEllerDekryptere();
+        nytProgram();
     }
 
     public int enterShift(){
@@ -119,7 +139,7 @@ public class Main {
 
     public int læggeTilShift(int tal, int shiftVærdi){
       int antalBogstaver = 29;
-      int talInklShift = tal += shiftVærdi;
+      int talInklShift = tal + shiftVærdi;
 
        if (talInklShift > antalBogstaver){
            talInklShift -= antalBogstaver;
@@ -130,7 +150,7 @@ public class Main {
 
     public int trækkeFraShift(int tal, int shiftVærdi){
        int antalBogstaver = 29;
-        int talInklShift = tal -= shiftVærdi;
+        int talInklShift = tal - shiftVærdi;
 
         if (talInklShift < 0){
             talInklShift = talInklShift + antalBogstaver;
