@@ -37,7 +37,7 @@ public class Main {
             "for en Cæsar-cipher-kryptering. Shift-værdien er en forskydning af hver enkelt bogstav det givne antal" +
             "pladser.");
 
-        int shift = shiftVærdi();
+        int shift = enterShift();
     }
 
     public void dekryptereTekst(){
@@ -45,19 +45,36 @@ public class Main {
             "den oprindelige tekst med en Cæsar-cipher-kryptering. Shift-værdien er en forskydning af hver enkelt bogstav" +
             " det givne antal pladser.");
 
-        int shift = shiftVærdi();
+        int shift = enterShift();
     }
 
-    public int shiftVærdi(){
+    public int enterShift(){
         Scanner input = new Scanner(System.in);
         System.out.println("Indtast shift-værdi: ");
         int shiftVærdi = input.nextInt();
         return shiftVærdi;
     }
 
-   // public void (){
+    // konvertere input teksten til char
+    public char[] tekstInputToChar (String tekstInput){
+        // hente tekstInput fra printBrugerflade();
+        char[] charVærdi = tekstInput.toCharArray();
+        System.out.println(charVærdi);
+        return charVærdi;
+    }
 
-    //}
+    // læg shiftværdi til, nyt tal ud
+
+    // tal til bogstav, char ud
+
+/*
+       Egen metode: Krypter et tegn(char)
+        int tal = bogTilTal(char);
+        int shift = lægShiftTil(tal);
+        char bogstav = talTilBog(shift);
+        return 0;
+
+  */
 
 
     // modtage en char (bogstav) og returnere en int
@@ -86,11 +103,14 @@ public class Main {
 
         Main obj = new Main();
 
-        int nummer = obj.bogstavTilNummer('H');
+        obj.tekstInputToChar("ABC");
+       /* int nummer = obj.bogstavTilNummer('H');
         System.out.println(nummer);
 
         char bogstav = obj.talTilBogstav(2);
         System.out.println(bogstav);
+
+        */
     }
 }
 
