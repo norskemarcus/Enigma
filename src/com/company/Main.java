@@ -1,5 +1,4 @@
 package com.company;
-import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class Main {
@@ -9,16 +8,15 @@ public class Main {
 
     public void printVelkommen(){
         System.out.println("Velkommen til krypterings- og dekrypteringsnøglen.");
-        System.out.println("Indtast tekst du vil kryptere/dekryptere: ");
-        tekstInput();
+        kryptereEllerDekryptere();
+
     }
 
     public String tekstInput(){
 
         Scanner input = new Scanner(System.in);
-        String tekstInput = input.nextLine();
-        kryptereEllerDekryptere();
-        return tekstInput;
+        String tekst = input.nextLine();
+        return tekst;
         }
 
 
@@ -40,13 +38,17 @@ public class Main {
     }
 
     public void kryptereTekst(){
+        System.out.println("Indtast tekst du vil kryptere: ");
+        String kryptereTekstInput = tekstInput();
+
         System.out.println("For at kryptere din tekst skal du vælge en shift-værdi, som er udgangspunktet " +
             "for en Cæsar-cipher-kryptering. ");
         System.out.println("Shift-værdien er en forskydning af hver enkelt bogstav det givne antal pladser.");
 
         int shift = enterShift();
-        String tekst = tekstInput();
-        krypterTekst(tekst, shift);
+        String krypteretOrd = krypterEtTegnAdGangen(kryptereTekstInput, shift);
+        System.out.println(krypteretOrd);
+
     }
 
     public void dekryptereTekst(){
@@ -65,7 +67,7 @@ public class Main {
     }
 
 
-    public StringBuilder krypterTekst(String tekstInput, int shiftVærdi){
+    public String krypterEtTegnAdGangen(String tekstInput, int shiftVærdi){
 
         StringBuilder str = new StringBuilder();
 
@@ -76,7 +78,7 @@ public class Main {
             char bogstav = talTilBogstav(nybogstavværdi);
             str.append(bogstav);
         }
-       return str;
+       return str.toString();
     }
 
     // modtage en char (bogstav) og returnere en int
@@ -117,8 +119,8 @@ public class Main {
         String testTekst = "AAAABBBB";
         int testShift = 3;
 
-       // obj.printVelkommen();
-        obj.krypterTekst(testTekst, testShift);
+        obj.printVelkommen();
+
 
     }
 }
