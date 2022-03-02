@@ -119,22 +119,26 @@ public class Main {
 
     public int læggeTilShift(int tal, int shiftVærdi){
       int antalBogstaver = 29;
-       if (tal > antalBogstaver){
-          tal = tal-antalBogstaver;
+      int talInklShift = tal += shiftVærdi;
+
+       if (talInklShift > antalBogstaver){
+           talInklShift -= antalBogstaver;
        }
-        tal += shiftVærdi;
-        return tal;
+
+        return talInklShift;
     }
 
     public int trækkeFraShift(int tal, int shiftVærdi){
        int antalBogstaver = 29;
-        if (tal < 0){
-            tal = tal + antalBogstaver;
+        int talInklShift = tal -= shiftVærdi;
+
+        if (talInklShift < 0){
+            talInklShift = talInklShift + antalBogstaver;
         } else if (tal == 0){
-            tal = antalBogstaver;
+            talInklShift = antalBogstaver;
         }
-        tal -= shiftVærdi;
-        return tal;
+
+        return talInklShift;
     }
 
     //modtage en int og returnere en char(bogstav)
