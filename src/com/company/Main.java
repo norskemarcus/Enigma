@@ -18,7 +18,6 @@ public class Main {
         //TODO: lave string om til char
 
     public void kryptereEllerDekryptere() {
-
         Scanner input = new Scanner(System.in);
         System.out.println("Vil du kryptere eller dekryptere?");
         int valg = input.nextInt();
@@ -34,16 +33,31 @@ public class Main {
     }
 
     public void kryptereTekst(){
-        Scanner input = new Scanner(System.in);
-        System.out.println("Vælg shiftværdi: ");
-        int shiftVærdi = input.nextInt();
+        System.out.println("For at kryptere din tekst skal du vælge en shift-værdi, som er udgangspunktet " +
+            "for en Cæsar-cipher-kryptering. Shift-værdien er en forskydning af hver enkelt bogstav det givne antal" +
+            "pladser.");
+
+        int shift = shiftVærdi();
     }
 
     public void dekryptereTekst(){
+        System.out.println("For at dekryptere din tekst skal du vælge den shift-værdi, som blev brugt for at for kryptere " +
+            "den oprindelige tekst med en Cæsar-cipher-kryptering. Shift-værdien er en forskydning af hver enkelt bogstav" +
+            " det givne antal pladser.");
 
+        int shift = shiftVærdi();
     }
 
+    public int shiftVærdi(){
+        Scanner input = new Scanner(System.in);
+        System.out.println("Indtast shift-værdi: ");
+        int shiftVærdi = input.nextInt();
+        return shiftVærdi;
+    }
 
+   // public void (){
+
+    //}
 
 
     // modtage en char (bogstav) og returnere en int
