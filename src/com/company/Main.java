@@ -1,25 +1,32 @@
 package com.company;
+import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class Main {
-    // obs måske have alfabetet flere gange, hvis man skal forskyde meget
-    // Hvad med stor shift-værdi?
+
     char[] alfabet = {' ', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
         'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'Æ', 'Ø', 'Å'};
 
+    public void printVelkommen(){
+        System.out.println("Velkommen til krypterings- og dekrypteringsnøglen.");
+    }
 
-    public void printBrugerflade(){
+    public String tekstInput(){
 
         Scanner input = new Scanner(System.in);
-        System.out.println("Velkommen til krypterings- og dekrypteringsnøglen.");
+
         System.out.println("Indtast tekst du vil kryptere/dekryptere: ");
         String tekstInput = input.nextLine();
+        kryptereEllerDekryptere();
+        return tekstInput;
         }
-        //TODO: lave string om til char
+
 
     public void kryptereEllerDekryptere() {
         Scanner input = new Scanner(System.in);
-        System.out.println("Vil du kryptere eller dekryptere?");
+        System.out.println("Vil du kryptere eller dekryptere? Tast ind 1 eller 2.");
+        System.out.println("1. Kryptere");
+        System.out.println("2. Dekryptere");
         int valg = input.nextInt();
 
         switch (valg) {
@@ -34,10 +41,13 @@ public class Main {
 
     public void kryptereTekst(){
         System.out.println("For at kryptere din tekst skal du vælge en shift-værdi, som er udgangspunktet " +
-            "for en Cæsar-cipher-kryptering. Shift-værdien er en forskydning af hver enkelt bogstav det givne antal" +
-            "pladser.");
+            "for en Cæsar-cipher-kryptering. ");
+        System.out.println("Shift-værdien er en forskydning af hver enkelt bogstav det givne antal pladser.");
 
         int shift = enterShift();
+        String tekstInputTekst = tekstInput();
+        krypterTekst(tekstInputTekst, shift);
+
     }
 
     public void dekryptereTekst(){
@@ -55,55 +65,62 @@ public class Main {
         return shiftVærdi;
     }
 
-    // konvertere input teksten til char
-    public char[] tekstInputToChar (String tekstInput){
-        // hente tekstInput fra printBrugerflade();
-        char[] charVærdi = tekstInput.toCharArray();
-        System.out.println(charVærdi);
-        return charVærdi;
+
+    public String krypterTekst(String tekstInput, int shiftVærdi){
+
+        for (int i = 0; i < tekstInput.length(); i++) {
+            char letter = tekstInput.charAt(i);
+            int tal = bogstavTilNummer(letter);
+            int nybogstavværdi = læggeTilShift(tal, shiftVærdi);
+            char bogstav = talTilBogstav(nybogstavværdi);
+            System.out.println(bogstav);
+
+            // String builder, husk at ændre void til StringBuilder
+        }
+
+       return null;
     }
 
-    // læg shiftværdi til, nyt tal ud
-
-    // tal til bogstav, char ud
-
-/*
-       Egen metode: Krypter et tegn(char)
-        int tal = bogTilTal(char);
-        int shift = lægShiftTil(tal);
-        char bogstav = talTilBog(shift);
-        return 0;
-
-  */
-
-
     // modtage en char (bogstav) og returnere en int
-    public int bogstavTilNummer(char bogstavChar) {
+    public int bogstavTilNummer(char tekstChar) {
 
         int intNummer;
         for (intNummer = 0; intNummer < alfabet.length; intNummer++) {
 
-            if (alfabet[intNummer] == bogstavChar){
+            if (alfabet[intNummer] == tekstChar){
                 return intNummer;
             }
         }
         return -1;
     }
 
-    // modtage en int og returnere en char(bogstav)
-    public char talTilBogstav(int talInt){
 
-        char talværdi = alfabet [talInt];
-        return talværdi;
+    public int læggeTilShift(int tal, int shiftVærdi){
+        shiftVærdi = enterShift();
+        return shiftVærdi;
 
     }
+
+    //modtage en int og returnere en char(bogstav)
+    public char talTilBogstav(int talInt){
+
+       char talværdi = alfabet [talInt];
+       return talværdi;
+
+    }
+
+
 
 
     public static void main (String[]args){
 
         Main obj = new Main();
+        String testTekst = "Dette er en test";
+        int testShift = 3;
 
-        obj.tekstInputToChar("ABC");
+        obj.tekstInput();
+
+        obj.krypterTekst(testTekst, testShift);
        /* int nummer = obj.bogstavTilNummer('H');
         System.out.println(nummer);
 
