@@ -1,5 +1,4 @@
 package com.company;
-import java.util.Locale;
 import java.util.Scanner;
 
 public class Main {
@@ -18,7 +17,6 @@ public class Main {
         return tekstInputString;
         }
 
-
     public void kryptereEllerDekryptere() {
         Scanner input = new Scanner(System.in);
         System.out.println("Vil du kryptere eller dekryptere? Tast ind 1 eller 2.");
@@ -36,26 +34,6 @@ public class Main {
         }
     }
 
-    public void nytProgram(){
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Vil du kryptere eller dekryptere igen eller afslutte?");
-        System.out.println("1. Kryptere");
-        System.out.println("2. Dekryptere");
-        System.out.println("3. Afslutte");
-        int valg = sc.nextInt();
-
-        switch (valg) {
-            case 1 -> kryptereTekst();
-            case 2 -> dekryptereTekst();
-            case 3 -> System.out.println("Velkommen tilbage en anden gang");
-            default -> {
-                System.out.println("Tast ind 1 for at kryptere, 2 for at dekryptere eller 3 for at afslutte program");
-                nytProgram();
-            }
-        }
-    }
-
-
     public void kryptereTekst(){
         System.out.println("Indtast tekst du vil kryptere: ");
         String kryptereTekstInput = tekstInput();
@@ -69,7 +47,6 @@ public class Main {
         System.out.println(krypteretOrd);
         System.out.println(" ");
         nytProgram();
-
     }
 
     public void dekryptereTekst(){
@@ -95,7 +72,6 @@ public class Main {
     }
 
     public String krypterEtTegnAdGangen(String tekstInput, int shiftVærdi){
-
         StringBuilder krypteretTekst = new StringBuilder();
 
         for (int i = 0; i < tekstInput.length(); i++) {
@@ -106,7 +82,6 @@ public class Main {
             krypteretTekst.append(bogstav);
         }
        return krypteretTekst.toString();
-
     }
 
     public String deKrypterEtTegnAdGangen(String tekstInput, int shiftVærdi) {
@@ -123,8 +98,6 @@ public class Main {
         return dekrypteretTekst.toString();
     }
 
-
-    // modtage en char (bogstav) og returnere en int
     public int bogstavTilNummer(char tekstChar) {
 
         int tal;
@@ -136,7 +109,6 @@ public class Main {
         return -1;
     }
 
-
     public int læggeTilShift(int tal, int shiftVærdi){
       int antalBogstaver = 29;
       int talInklShift = tal + shiftVærdi;
@@ -144,7 +116,6 @@ public class Main {
        if (talInklShift > antalBogstaver){
            talInklShift -= antalBogstaver;
        }
-
         return talInklShift;
     }
 
@@ -155,17 +126,32 @@ public class Main {
         if (talInklShift < 0){
             talInklShift = talInklShift + antalBogstaver;
         }
-
-
         return talInklShift;
     }
 
-    //modtage en int og returnere en char(bogstav)
     public char talTilBogstav(int talInt){
        char nyBogstav = alfabet [talInt];
        return nyBogstav;
     }
 
+    public void nytProgram(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Vil du kryptere eller dekryptere igen eller afslutte?");
+        System.out.println("1. Kryptere");
+        System.out.println("2. Dekryptere");
+        System.out.println("3. Afslutte");
+        int valg = sc.nextInt();
+
+        switch (valg) {
+            case 1 -> kryptereTekst();
+            case 2 -> dekryptereTekst();
+            case 3 -> System.out.println("Velkommen tilbage en anden gang");
+            default -> {
+                System.out.println("Tast ind 1 for at kryptere, 2 for at dekryptere eller 3 for at afslutte program");
+                nytProgram();
+            }
+        }
+    }
 
     public static void main (String[]args){
 
